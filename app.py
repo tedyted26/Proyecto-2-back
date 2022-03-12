@@ -30,9 +30,8 @@ books = [
 
 @app.route('/')
 def hello_world():
-    list_tweets = twitter_data_access()
-    objects = preprocessing(list_of_text=list_tweets)
-    return objects
+    
+    return "Esto es el inicio de la API"
 
 @app.route('/test', methods=["GET", "POST"])
 def test_sentiment_analysis():
@@ -50,10 +49,12 @@ def test_sentiment_analysis():
         }
     )
 
-
-@app.route('/app-sentiment-analysis', methods=["GET", "POST"])
+@app.route('/app-sentiment-analysis', methods=["GET","POST"])
 def sentiment_analysis():
-    return jsonify(books)
+    text_input_user = request.args.get('text')
+    text = preprocessing_input_user(text_input_user)
+    return text
+
 
 if __name__ == '__main__':
     app.run(debug = True)

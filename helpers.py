@@ -31,22 +31,48 @@ def twitter_data_access():
 
 
 def preprocessing_input_user(text_to_process):
-    list_objects = []
+    
     texto = TextBlob(text_to_process)
     traduccion = TextBlob(str(texto.translate(to='en')))
-    print(traduccion.words)
+    #print(traduccion.words)
+    polaridadTotal = 0
+    list_objects =[]
     if (traduccion.sentiment[0]>0):
-        positivos += 1
         polaridadTotal = polaridadTotal+traduccion.sentiment[0]
+        text_object = {
+                'id':id,
+                "texto":texto,
+                "traduccion":traduccion,
+                "polaridad":polaridadTotal,
+                'type_text': "positivo"
+            }
     
     elif (traduccion.sentiment[0]<0):
-        negativos += 1
         polaridadTotal = polaridadTotal+traduccion.sentiment[0]
+        text_object = {
+                'id':id,
+                "texto":texto,
+                "traduccion":traduccion,
+                "polaridad":polaridadTotal,
+                'type_text': "negativo"
+            }
 
     elif (traduccion.sentiment[0]==0):
-        neutros += 1
-        
+        polaridadTotal = polaridadTotal+traduccion.sentiment[0]
+        text_object = {
+                'id':id,
+                "texto":texto,
+                "traduccion":traduccion,
+                "polaridad":polaridadTotal,
+                'type_text': "neutro"
+            }
+    list_objects.append(str(text_object))
     return jsonify(list_objects)
+
+
+
+
+
 
 def preprocessing(list_of_text):
     polaridadTotal = 0
