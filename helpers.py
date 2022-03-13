@@ -32,7 +32,6 @@ def twitter_data_access():
 
 
 def preprocessing_input_user(text_to_process):
-    
     texto = TextBlob(text_to_process)
     traduccion = TextBlob(str(texto.translate(to='en')))
     polaridadTotal = 0
