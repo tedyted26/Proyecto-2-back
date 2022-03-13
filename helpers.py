@@ -1,5 +1,5 @@
 #External Imports
-import tweepy
+#import tweepy
 from textblob import TextBlob
 from flask import jsonify
 

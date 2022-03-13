@@ -30,9 +30,10 @@ books = [
 
 @app.route('/')
 def hello_world():
-    list_tweets = twitter_data_access()
-    objects = preprocessing(list_of_text=list_tweets)
-    return objects
+    #list_tweets = twitter_data_access()
+    #objects = preprocessing(list_of_text=list_tweets)
+    #return objects
+    pass
 
 @app.route('/test', methods=["GET", "POST"])
 def test_sentiment_analysis():
