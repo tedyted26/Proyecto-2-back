@@ -1,7 +1,8 @@
 #External Imports
 #import tweepy
 from textblob import TextBlob
-from flask import jsonify
+from flask import jsonify, make_response
+import datetime
 
 #Internal Imports
 #from tweepy import OAuthHandler
@@ -31,43 +32,35 @@ def twitter_data_access():
 
 
 def preprocessing_input_user(text_to_process):
-    
     texto = TextBlob(text_to_process)
     traduccion = TextBlob(str(texto.translate(to='en')))
-    #print(traduccion.words)
     polaridadTotal = 0
-    list_objects =[]
     if (traduccion.sentiment[0]>0):
         polaridadTotal = polaridadTotal+traduccion.sentiment[0]
         text_object = {
-                'id':id,
-                "texto":texto,
-                "traduccion":traduccion,
+                
                 "polaridad":polaridadTotal,
-                'type_text': "positivo"
+                "type_text": "positivo",
             }
     
     elif (traduccion.sentiment[0]<0):
         polaridadTotal = polaridadTotal+traduccion.sentiment[0]
         text_object = {
-                'id':id,
-                "texto":texto,
-                "traduccion":traduccion,
+                
+                
                 "polaridad":polaridadTotal,
-                'type_text': "negativo"
+                "type_text": "negativo",
             }
 
     elif (traduccion.sentiment[0]==0):
         polaridadTotal = polaridadTotal+traduccion.sentiment[0]
         text_object = {
-                'id':id,
-                "texto":texto,
-                "traduccion":traduccion,
+
                 "polaridad":polaridadTotal,
-                'type_text': "neutro"
+                "type_text": "neutro",
             }
-    list_objects.append(str(text_object))
-    return jsonify(list_objects)
+    print(text_object)
+    return jsonify(text_object)
 
 
 
