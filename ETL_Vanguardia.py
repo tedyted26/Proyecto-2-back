@@ -4,23 +4,70 @@ from Noticia import Noticia
 
 import ssl
 
+categoria = "salamanca"
+urlbase = "https://stories.lavanguardia.com/search?q="
+url = urlbase + categoria
+html = None
+
 # ver que hacer con los resultados de la busqueda que no llevan a ninguna parte
+try:
+    html = rq.urlopen(url, context=ssl.SSLContext()).read()
+except:
+    print("Pagina no encontrada")
 
-# recoger todos los <article class="result"
+if html != None:
+    resultados = []
+    soup = BeautifulSoup(html, 'html.parser')
+    # recoger todos los <article class="result"
+    resultados.extend(soup.find_all(class_="result"))
 
-# para paginación
-# pagina 1: https://stories.lavanguardia.com/search?q=salamanca
-# pagina 2: https://stories.lavanguardia.com/search?q=salamanca&author=&category=&section=&startDate=&endDate=&sort=&page=2
-# no funciona si uso el enlace de la pag 2 para la 1
+    # para paginación
+    # pagina 1: https://stories.lavanguardia.com/search?q=salamanca
+    # pagina 2: https://stories.lavanguardia.com/search?q=salamanca&author=&category=&section=&startDate=&endDate=&sort=&page=2
+    # no funciona si uso el enlace de la pag 2 para la 1
 
-# dentro de la noticia
-# <h1 class="title"
-# <h2 class="epigraph"
-# <time datetime="2021-01-10T11:29:12+01:00" class="created">10/01/2021 11:29</time>
-# url pillarla de antes
-# <h2 class="supra-title" para la categoría?
-# periodico = la vanguardia
-# no hay tags
-# para ver los comentarios usar selenium en: <div class="spotim-open comments-bbd14976-532c-11eb-acb3-c65f349e9d3e-20210110112042">Mostrar comentarios</div> Comprobar que los numeros estan bien
-# dentro de <div class="article-modules" pillar todos los <p> (texto)
+    filters = "&author=&category=&section=&startDate=&endDate=&sort=&page="
+    fin_pag = False
+    page = 2
+    while fin_pag == False:
+        url_pag = url + filters + str(page)
+        html_pag = None
+
+        try:
+            html_pag = rq.urlopen(url_pag, context=ssl.SSLContext()).read()
+        except:
+            fin_pag = True
+
+        if html_pag != None:
+            soup_pag = BeautifulSoup(html_pag, 'html.parser')
+            resultados.extend(soup_pag.find_all(class_="result"))
+            page = page + 1
+
+    noticias = []
+
+    # dentro de las noticia
+    for article in resultados:
+        url_art = article.find("a")["href"]
+
+        html_art = rq.urlopen(url_art, context=ssl.SSLContext()).read()
+        soup_art = BeautifulSoup(html_art, 'html.parser')
+
+        titulo = soup_art.find(class_="title").text
+        subtitulos = soup_art.find_all(class_="epigraph")
+        subtitulo = ""
+        for sub in subtitulos:
+            subtitulo = subtitulo + sub.text
+        fecha = soup_art.find("time")["datetime"]
+        categoria = soup_art.find(class_="supra-title").text
+        periodico = "La Vanguardia"
+        tags = ""
+
+        # para ver los comentarios: <div class="spotim-open comments-bbd14976-532c-11eb-acb3-c65f349e9d3e-20210110112042">Mostrar comentarios</div> Comprobar que los numeros estan bien
+        # <ul class="spcv_messages-list"
+
+        texto_entero = soup_art.find(class_="article-modules").find_all("p")
+        texto = ""
+        for p in texto_entero:
+            texto = texto + p.text
+
 
