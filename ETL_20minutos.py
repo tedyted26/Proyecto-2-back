@@ -10,6 +10,7 @@ import selenium
 import os
 from pathlib import Path
 from Noticia import Noticia
+from Guardado import Guardado
 
 def get20MinutosNews(categoria):
     #print(mainUrl)
@@ -60,52 +61,14 @@ def get20MinutosNews(categoria):
     
     return listaNoticias
 
-def guardarNoticias(listaN: list, ruta):
-    fechaAnterior = ""
-    for n in listaN:
-        try:
-            nuevaFecha = f"{n.fecha.year}-{n.fecha.month}-{n.fecha.day}"
-            
-            if(nuevaFecha != fechaAnterior):
-                noticiasDiarias = 1
-            else:
-                noticiasDiarias = noticiasDiarias + 1
-                
-            nombreArchivo = n.categoria + "." + nuevaFecha + "." + str(noticiasDiarias).zfill(3) + ".txt"
-            print(nombreArchivo)
-
-            s = "\n#####\n"
-            texto = f"{n.url}{s}" \
-                    f"{n.periodico}{s}" \
-                    f"{n.categoria}{s}" \
-                    f"{n.fecha}{s}" \
-                    f"{n.titulo}{s}" \
-                    f"{n.subtitulo}{s}" \
-                    f"{n.texto}{s}" \
-                    f"{n.tags}" \
-                # Path(ruta).mkdir(parents=True, exist_ok=True)
-            cd = os.getcwd() + "/"+n.periodico
-
-            if not os.path.exists(cd):
-                os.mkdir(cd)
-            cd2 = cd + ruta
-
-            if not os.path.exists(cd2):
-                os.mkdir(cd2)
-            f = open(os.path.join(cd2, nombreArchivo), "w")
-            f.write(texto)
-            f.close()
-            fechaAnterior = nuevaFecha
-        except Exception as e:
-            print(e)
-
 
 def el20Minutos():
     
     busqueda = "ponferrada"
     
     noticias = get20MinutosNews(busqueda)
-    guardarNoticias(noticias, ("/"+busqueda))
+    guardado = Guardado()
+    guardado.guardarNoticias(noticias, ("/"+busqueda))
     '''
     print(noticias[1].periodico)
     print(noticias[1].fecha)
