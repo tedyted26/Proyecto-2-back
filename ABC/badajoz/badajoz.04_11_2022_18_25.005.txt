@@ -1,0 +1,15 @@
+https://www.abc.es/espana/castilla-la-mancha/toledo/talavera/abci-muere-conductor-kamikaze-tras-chocar-vehiculo-contra-camion-talavera-reina-202203301033_noticia.html
+#####
+ABC
+#####
+badajoz
+#####
+2022-03-30T09:14:46Z
+#####
+Muere un conductor «kamikaze» tras chocar su vehículo contra un camión en Talavera de la Reina
+#####
+El camionero, que resultó herido, tuvo que ser trasladado al hospital Virgen del Prado
+#####
+     El conductor de un turismo que circulaba en sentido contrario a su marcha ha perdido la vida tras chocar contra un camión frigorífico a la altura del kilómetro 130 de la A-5 (sentido Badajoz), dentro del término municipal de Talavera de la Reina. El aviso del suceso se recibió a las 23.22 horas de este martes, según han informado fuentes del 112 de Castilla-La Mancha. El fallecido, de 45 años de edad y cuya identidad responde a las iniciales A. F. M., tuvo que ser excarcelado por los bomberos de Talavera, al quedar atrapado en el vehículo como consecuencia de la colisión frontolateral de su vehículo.   El otro conductor implicado en el choque, F. M. H, un camionero, de 54 años, resultó herido y después de ser atendido por los servicios sanitarios en el lugar del suceso tuvo que ser trasladado en ambulancia al hospital Nuestra Señora del Prado de Talavera de la Reina. Hasta el lugar del accidente se desplazaron bomberos de Talavera -que desencarcelaron el cuerpo-, una UVI, un médico de urgencias,  dos ambulancias y efectivos de la Guardia Civil que están investigando si el conductor del vehículo tuvo intencionalidad o no de conducir en sentido contrario.
+#####
+['Badajoz (Provincia)', 'Castilla-La Mancha', 'Talavera de la Reina', 'Bomberos', 'Conductores suicidas', 'Emergencias']

@@ -10,7 +10,7 @@ import selenium
 import os
 from pathlib import Path
 from Noticia import Noticia
-from Guardado import Guardado
+import Guardado
 
 def get20MinutosNews(categoria):
     #print(mainUrl)
@@ -67,8 +67,7 @@ def el20Minutos():
     busqueda = "ponferrada"
     
     noticias = get20MinutosNews(busqueda)
-    guardado = Guardado()
-    guardado.guardarNoticias(noticias, ("/"+busqueda))
+    Guardado.guardarNoticias(noticias, ("/"+busqueda))
     '''
     print(noticias[1].periodico)
     print(noticias[1].fecha)

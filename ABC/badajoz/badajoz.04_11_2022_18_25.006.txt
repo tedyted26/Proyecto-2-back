@@ -1,0 +1,16 @@
+https://www.abc.es/sociedad/abci-tiempo-semana-santa-borrasca-diego-lleva-lluvia-viento-y-olas-cinco-metros-norte-202204081034_noticia.html
+#####
+ABC
+#####
+badajoz
+#####
+2022-04-09T08:55:09Z
+#####
+El tiempo en Semana Santa: la borrasca Diego lleva lluvia, viento y olas de cinco metros al norte
+#####
+La mayor parte de España, en cambio, disfrutará del sol al inicio de las vacaciones
+#####
+     Un frente asociado a la                         
+        borrasca Diego inestabilizará el tiempo este viernes en el norte peninsular con lluvia, rachas de viento de 80 a 90 km/h y olas de cuatro a cinco metros de altura. La predicción de la Agencia Estatal de Meteorología (Aemet), recogida por Servimedia, indica que ese frente atlántico entrará por el noroeste y dejará cielos nubosos o cubiertos en Galicia y el área cantábrica, con precipitaciones que pueden ser localmente persistentes en el oeste de Galicia. Las precipitaciones tenderán a remitir en general, si bien se desplazarán hacia el sur y el este, y afectarán de forma más débil y dispersa a otras zonas del tercio noroeste peninsular y Pirineos. El sol brillará en el resto de la península y Baleares, lo que coincidirá con la salida de muchos ciudadanos para disfrutar de las vacaciones de Semana Santa, si bien irán apareciendo intervalos nubosos a lo largo del día, que serán de nubes altas en el tercio sur peninsular y Baleares. En Canarias habrá intervalos nubosos en el norte de las islas y pocas nubes en el sur. Las temperaturas ascenderán en el litoral mediterráneo peninsular y Canarias, descenderán en el centro y norte de la península, y apenas cambiarán en el resto del país. Las capitales más calurosas serán Valencia y Zaragoza (25ºC); Lleida, Málaga y Murcia (24); Castellón de la Plana, Huesca y Santa Cruz de Tenerife (23), y Badajoz, Barcelona, Córdoba, Huelva y Sevilla (22). En cambio, habrá un ambiente más suave en León (13), Ávila (14) y Burgos (15). Por último, este viernes soplarán vientos del oeste y suroeste en la península y Baleares, con intervalos de fuerte en el litoral de Galicia y Cantábrico. En Canarias habrá vientos alisios moderados del noreste.
+#####
+['Baleares', 'Canarias', 'Burgos', 'Invierno', 'Nevadas', 'Ola de calor', 'Calor', 'Meteorología']

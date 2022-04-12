@@ -1,0 +1,16 @@
+https://www.abc.es/espana/madrid/abci-operacion-txapela-ocho-pandilleros-detenidos-brutal-paliza-rivales-metro-bilbao-202204111011_noticia.html
+#####
+ABC
+#####
+violencia
+#####
+2022-04-11T08:14:52Z
+#####
+Operación Txapela: ocho pandilleros detenidos por una «una brutal paliza» a dos rivales en el Metro de Bilbao
+#####
+Los arrestados son de la banda latina de los Trinitarios y una de las víctimas es de los Ñetas
+#####
+     La Brigada Provincial de Información ha detenido a ocho miembros de la banda latina de los Trinitarios, una de las dos más activas en la actualidad, por propinar «una brutal paliza», explican fuentes policiales, a dos jóvenes, uno de ellos de los Ñetas. Los hechos ocurrieron el 3 de octubre en la estación de Metro de Bilbao, de ahí que a la investigación se la haya denominado operación Txapela.  Las dos víctimas fueron asaltadas y recibieron golpes que precisaron su traslado hospitalario. Además, a uno le robaron el móvil. En una primera fase, la                                             
+        Policía Nacional arrestó a cinco jóvenes el pasado 30 de noviembre. Luego, se identificó a los otros tres, arrestados en marzo. Pero uno de ellos había huido a la República Dominicana, pero fue cazado al regresar a España el día 24 del mes pasado. Los ocho encartados están acusados de lesiones graves y robo con violencia. Son cinco españoles, dos dominicanos y un marroquí: tres son menores de edad, de 17 años, y el resto tiene hasta 20 años.
+#####
+['Republica Dominicana', 'Policia Nacional', 'Detenciones', 'Metro', 'Victimas', 'Delincuentes', 'Sucesos', 'Bandas juveniles', 'Policía Nacional', 'Atracos']
