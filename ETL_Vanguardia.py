@@ -4,73 +4,71 @@ from Noticia import Noticia
 
 import ssl
 
-categoria = "salamanca"
-urlbase = "https://stories.lavanguardia.com/search?q="
-url = urlbase + categoria
-html = None
+def getLaVanguardiaNews(categoria:str):
+    urlbase = "https://stories.lavanguardia.com/search?q="
+    url = urlbase + categoria
+    html = None
+    print("pillando enlaces")
 
-# ver que hacer con los resultados de la busqueda que no llevan a ninguna parte
-try:
-    html = rq.urlopen(url, context=ssl.SSLContext()).read()
-except:
-    print("Pagina no encontrada")
+    # ver que hacer con los resultados de la busqueda que no llevan a ninguna parte
+    try:
+        html = rq.urlopen(url, context=ssl.SSLContext()).read()
+        print("conexion realizada")
+    except:
+        print("Pagina no encontrada")
 
-if html != None:
-    resultados = []
-    soup = BeautifulSoup(html, 'html.parser')
-    # recoger todos los <article class="result"
-    resultados.extend(soup.find_all(class_="result"))
+    if html != None:
+        resultados = []
+        soup = BeautifulSoup(html, 'html.parser')
+        # recoger todos los <article class="result"
+        resultados.extend(soup.find_all(class_="result"))
+        print("recogiendo articulos")
 
-    # para paginación
-    # pagina 1: https://stories.lavanguardia.com/search?q=salamanca
-    # pagina 2: https://stories.lavanguardia.com/search?q=salamanca&author=&category=&section=&startDate=&endDate=&sort=&page=2
-    # no funciona si uso el enlace de la pag 2 para la 1
+        # para paginación
+        # pagina 1: https://stories.lavanguardia.com/search?q=salamanca
+        # pagina 2: https://stories.lavanguardia.com/search?q=salamanca&author=&category=&section=&startDate=&endDate=&sort=&page=2
+        # no funciona si uso el enlace de la pag 2 para la 1
 
-    filters = "&author=&category=&section=&startDate=&endDate=&sort=&page="
-    fin_pag = False
-    page = 2
-    while fin_pag == False:
-        url_pag = url + filters + str(page)
-        html_pag = None
+        filters = "&author=&category=&section=&startDate=&endDate=&sort=&page="
+        max_page = 4
+        page = 2
+        while page < max_page:
+            print("paginando: ", page)
+            url_pag = url + filters + str(page)
+            html_pag = None
 
-        try:
-            html_pag = rq.urlopen(url_pag, context=ssl.SSLContext()).read()
-        except:
-            fin_pag = True
+            # esto es por si tiene menos paginas de las que queremos pillar
+            try:
+                html_pag = rq.urlopen(url_pag, context=ssl.SSLContext()).read()
+            except:
+                page = max_page
 
-        if html_pag != None:
-            soup_pag = BeautifulSoup(html_pag, 'html.parser')
-            resultados.extend(soup_pag.find_all(class_="result"))
-            page = page + 1
+            if html_pag != None:
+                soup_pag = BeautifulSoup(html_pag, 'html.parser')
+                resultados.extend(soup_pag.find_all(class_="result"))
+                page = page + 1
 
-    noticias = []
+        noticias = []
 
-    # dentro de las noticia
-    for article in resultados:
-        url_art = article.find("a")["href"]
-        # esta url es solo de prueba
-        url_art = "https://www.lavanguardia.com/internacional/20220408/8185819/rusia-excluida-consejo-derechos-humanos-onu.html"
-        html_art = rq.urlopen(url_art, context=ssl.SSLContext()).read()
-        soup_art = BeautifulSoup(html_art, 'html.parser')
+        # dentro de las noticia
+        for article in resultados:
+            url_art = article.find("a")["href"]
+            html_art = rq.urlopen(url_art, context=ssl.SSLContext()).read()
+            soup_art = BeautifulSoup(html_art, 'html.parser')
 
-        titulo = soup_art.find(class_="title").text
+            titulo = soup_art.find(class_="title").text
 
-        subtitulos = soup_art.find_all(class_="epigraph")
-        subtitulo = ""
-        for sub in subtitulos:
-            subtitulo = subtitulo + sub.text
+            subtitulos = soup_art.find_all(class_="epigraph")
+            subtitulo = ""
+            for sub in subtitulos:
+                subtitulo = subtitulo + sub.text
 
-        fecha = soup_art.find("time")["datetime"]
+            # FIXME a lo que tienen los demas
+            fecha = soup_art.find("time")["datetime"]
 
-        categoria = soup_art.find(class_="supra-title").text
+            texto_entero = soup_art.find(class_="article-modules").find_all("p")
+            texto = ""
+            for p in texto_entero:
+                texto = texto + p.text
 
-        periodico = "La Vanguardia"
-
-        tags = ""
-
-        texto_entero = soup_art.find(class_="article-modules").find_all("p")
-        texto = ""
-        for p in texto_entero:
-            texto = texto + p.text
-
-
+            noticias.append(Noticia(titulo, subtitulo, fecha, url_art, categoria, "La Vanguardia", [], texto))
