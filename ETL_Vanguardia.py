@@ -1,14 +1,8 @@
 from bs4 import BeautifulSoup
 from urllib import request as rq
 from Noticia import Noticia
-# pip install selenium
-# pip install webdriver_manager
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 
 import ssl
-
-driver = webdriver.Chrome(ChromeDriverManager().install())
 
 categoria = "salamanca"
 urlbase = "https://stories.lavanguardia.com/search?q="
@@ -78,14 +72,5 @@ if html != None:
         texto = ""
         for p in texto_entero:
             texto = texto + p.text
-
-        driver.get(url_art)
-
-        #cart = driver.find_element_by_class_name("spotim-open")
-        #cart.click()
-        #modal_comentarios = soup_art.find(class_="comments-modal") # spcv_messages-list
-        #print(modal_comentarios.prettify())
-        #ul_comentarios = modal_comentarios.find("ul")
-        #lista_comentarios = ul_comentarios.find_all(class_="spcv_list-item")
 
 
