@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
 from urllib import request as rq
 from Noticia import Noticia
+import Guardado as save
 
 import ssl
 
-def getLaVanguardiaNews(categoria:str):
+def getLaVanguardiaNews(categoria:str, num_pags = 4):
     urlbase = "https://stories.lavanguardia.com/search?q="
     url = urlbase + categoria
     html = None
@@ -30,9 +31,8 @@ def getLaVanguardiaNews(categoria:str):
         # no funciona si uso el enlace de la pag 2 para la 1
 
         filters = "&author=&category=&section=&startDate=&endDate=&sort=&page="
-        max_page = 4
         page = 2
-        while page < max_page:
+        while page < num_pags:
             print("paginando: ", page)
             url_pag = url + filters + str(page)
             html_pag = None
@@ -41,7 +41,7 @@ def getLaVanguardiaNews(categoria:str):
             try:
                 html_pag = rq.urlopen(url_pag, context=ssl.SSLContext()).read()
             except:
-                page = max_page
+                page = num_pags
 
             if html_pag != None:
                 soup_pag = BeautifulSoup(html_pag, 'html.parser')
@@ -72,3 +72,8 @@ def getLaVanguardiaNews(categoria:str):
                 texto = texto + p.text
 
             noticias.append(Noticia(titulo, subtitulo, fecha, url_art, categoria, "La Vanguardia", [], texto))
+    return noticias 
+
+# categoria = "violencia"
+# lNoticias = getLaVanguardiaNews(categoria)
+# save.guardarNoticias(lNoticias, f"/{categoria}")
