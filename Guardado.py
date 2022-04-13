@@ -9,7 +9,7 @@ from datetime import datetime
 
 now = datetime.now()
 
-current_time = now.strftime("%m_%d_%Y_%H_%M")
+current_time = now.strftime("%d-%m-%Y.%Hh%Mm")
 #from pathlib import Path
 
 
