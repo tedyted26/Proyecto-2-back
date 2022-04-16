@@ -25,7 +25,7 @@ def guardarNoticias( listaN: list, ruta):
                 noticiasDiarias = noticiasDiarias + 1
                 
             nombreArchivo = n.categoria + "." + current_time + "." + str(noticiasDiarias).zfill(3) + ".txt"
-            print(nombreArchivo)
+            #print(nombreArchivo)
 
             s = "\n#####\n"
             texto = f"{n.url}{s}" \
@@ -45,7 +45,7 @@ def guardarNoticias( listaN: list, ruta):
 
             if not os.path.exists(cd2):
                 os.mkdir(cd2)
-            f = open(os.path.join(cd2, nombreArchivo), "w")
+            f = open(os.path.join(cd2, nombreArchivo), "w", encoding="utf-8")
             f.write(texto)
             f.close()
             fechaAnterior = current_time
