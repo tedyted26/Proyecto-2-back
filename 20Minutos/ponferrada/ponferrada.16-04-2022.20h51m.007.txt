@@ -1,0 +1,15 @@
+https://www.20minutos.es/noticia/4966337/0/acertante-euromillones-gana-bote-millones/
+#####
+20Minutos
+#####
+ponferrada
+#####
+2022-03-04 22:22:00
+#####
+Un acertante de Euromillones gana el bote de 78 millones
+#####
+Comprueba los resultados de todos los sorteos en 20minutos.es.
+#####
+ El sorteo de Euromillones de este viernes 4 de marzo de 2022 ha dejado un ganador de primera categoría (cinco aciertos más dos estrellas), que cobrará un premio total de 78.587.957 euros. El boleto fue validado en Portugal.En España existen dos boletos acertantes de tercera categoría (5 + 0) que han sido validados en la Administración de Loterías nº 6 de Ponferrada (León), situada en C.C. El Rosal - Avda. de la Constitución, 2, L-138 y en el despacho receptor nº 16.795 de Mungia (Vizcaya), situado en Sabino Arana, 4. Estos jugadores cobrarán 30.742,26 euros.El boleto acertante de El Millón ha sido validado a través del canal oficial de internet Loterías y Apuestas del Estado.La combinación ganadora es la formada por los números 6, 20, 40, 42, 43. Estrellas 10 y 12.El precio de cada boleto en España es de 2,5 euros y se deben marcar 5 números entre el 1 y el 50, además de dos estrellas entre los números 1 y 11. El premio gordo se lo lleva el acertante de todos los números, aunque hay otras 12 categorías que también reciben premio.El primer sorteo de Euromillones se celebró en febrero de 2004 en París y actualmente pueden participar ciudadanos de España, Suiza, Francia, Irlanda, Reino Unido, Portugal, Austria, Bélgica y Luxemburgo.
+#####
+['Euromillones', 'Loterías y Apuestas del Estado', 'Bote']
