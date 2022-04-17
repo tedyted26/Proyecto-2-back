@@ -6,45 +6,47 @@ import Guardado as save
 
 import ssl
 
-def getABCNews(categoria: String, pagina = 1):
+def getABCNews(categoria: String, paginas = 1):
 
     urlbase = "https://www.abc.es/hemeroteca/noticia/"
-    url = urlbase + categoria + f"/pagina-{pagina}"
-    html = rq.urlopen(url, context=ssl.SSLContext()).read()
-    soup = BeautifulSoup(html, 'html.parser')
-
-    resultados = soup.find(id="results-content")
     listaNoticias = []
 
-    for li in resultados.findAll("li"):
-        link = li.find("a")["href"]
+    for pagina in range(1, paginas+1):
+        url = urlbase + categoria + f"/pagina-{pagina}"
+        html = rq.urlopen(url, context=ssl.SSLContext()).read()
+        soup = BeautifulSoup(html, 'html.parser')
 
-        html_noticia = rq.urlopen(link, context=ssl.SSLContext()).read()
-        soupTmp = BeautifulSoup(html_noticia, 'html.parser')
-
-        encabezado = soupTmp.find(class_="encabezado-articulo")
-        titulo = encabezado.find(class_="titular").text
-        subtitulo = encabezado.find(class_="subtitulo").text
-
-        cuerpo = soupTmp.find(class_="cuerpo-texto")
-        fecha = cuerpo.find(class_="fecha").find("time")["datetime"]
-        texto = " ".join([x.text for x in cuerpo.findAll("p")])
-        try:
-            tags = [x.text for x in cuerpo.find(class_="modulo temas").findAll("li")]
-        except:
-            tags = []
-
-        bloqueCOM = cuerpo.find(class_="comentarios")
-        listaCOM = cuerpo.findAll(class_="gig-comment-body")
-        #Los comentarios no funcionan porque se carga dinamicamente
-        #comentarios = [x.text for x in cuerpo.findAll(class_="gig-comment-body")]
+        resultados = soup.find(id="results-content")
         
-        noticia = Noticia(titulo, subtitulo, fecha, link, categoria, "ABC", tags, texto)
-        listaNoticias.append(noticia)
-        #print(titulo,link, "\n----\n")
+        for li in resultados.findAll("li"):
+            link = li.find("a")["href"]
+
+            html_noticia = rq.urlopen(link, context=ssl.SSLContext()).read()
+            soupTmp = BeautifulSoup(html_noticia, 'html.parser')
+
+            encabezado = soupTmp.find(class_="encabezado-articulo")
+            titulo = encabezado.find(class_="titular").text
+            subtitulo = encabezado.find(class_="subtitulo").text
+
+            cuerpo = soupTmp.find(class_="cuerpo-texto")
+            fecha = cuerpo.find(class_="fecha").find("time")["datetime"]
+            texto = " ".join([x.text for x in cuerpo.findAll("p")])
+            try:
+                tags = [x.text for x in cuerpo.find(class_="modulo temas").findAll("li")]
+            except:
+                tags = []
+
+            bloqueCOM = cuerpo.find(class_="comentarios")
+            listaCOM = cuerpo.findAll(class_="gig-comment-body")
+            #Los comentarios no funcionan porque se carga dinamicamente
+            #comentarios = [x.text for x in cuerpo.findAll(class_="gig-comment-body")]
+            
+            noticia = Noticia(titulo, subtitulo, fecha, link, categoria, "ABC", tags, texto)
+            listaNoticias.append(noticia)
+            #print(titulo,link, "\n----\n")
     return listaNoticias
 
 
 categoria = "violencia"
-lNoticias = getABCNews(categoria,2)
+lNoticias = getABCNews(categoria,3)
 save.guardarNoticias(lNoticias, f"/{categoria}")

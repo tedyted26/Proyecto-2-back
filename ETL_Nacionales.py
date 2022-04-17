@@ -106,9 +106,12 @@ def getElMundoNews(categoria):
             
     return listaNoticias
 
+'''
 def getElPaisNews(categoria):
     listaNoticias = []
     return listaNoticias
+'''
+
 
 
 
@@ -127,20 +130,21 @@ def elMundo():
     noticias = getElMundoNews(busqueda)
     Guardado.guardarNoticias(noticias, ("/"+busqueda))
     
-
+'''
 def elPais():
     
     busqueda = "aluche"
     
     noticias = getElPaisNews(busqueda)
     #Guardado.guardarNoticias(noticias, ("/"+busqueda))
+'''
+
     
    
     
    
 el20Minutos()
 elMundo()
-elPais()
 
 
 
