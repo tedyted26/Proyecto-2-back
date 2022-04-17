@@ -7,7 +7,7 @@ import ssl
 
 def getLaVanguardiaNews(categoria:str, num_pags = 4):
     urlbase = "https://stories.lavanguardia.com/search?q="
-    url = urlbase + categoria
+    url = urlbase + categoria + "&author=&category=&section=&startDate=&endDate=&sort="
     html = None
     print("pillando enlaces")
 
@@ -30,7 +30,7 @@ def getLaVanguardiaNews(categoria:str, num_pags = 4):
         # pagina 2: https://stories.lavanguardia.com/search?q=salamanca&author=&category=&section=&startDate=&endDate=&sort=&page=2
         # no funciona si uso el enlace de la pag 2 para la 1
 
-        filters = "&author=&category=&section=&startDate=&endDate=&sort=&page="
+        filters = "&page="
         page = 2
         while page < num_pags:
             print("paginando: ", page)
@@ -74,6 +74,6 @@ def getLaVanguardiaNews(categoria:str, num_pags = 4):
             noticias.append(Noticia(titulo, subtitulo, fecha, url_art, categoria, "La Vanguardia", [], texto))
     return noticias 
 
-# categoria = "violencia"
-# lNoticias = getLaVanguardiaNews(categoria)
-# save.guardarNoticias(lNoticias, f"/{categoria}")
+categoria = "violencia"
+lNoticias = getLaVanguardiaNews(categoria)
+save.guardarNoticias(lNoticias, f"/{categoria}")

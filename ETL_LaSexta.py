@@ -11,11 +11,11 @@ from Guardado import guardarNoticias
 
 
 
-def scraper_la_sexta(count_pages):
+def scraper_la_sexta(busqueda ,count_pages):
     lista_noticias = []
     fechaAnterior = ""
     url_base = "https://www.lasexta.com/"
-    url_odio = "temas/delitos_de_odio-"
+    url_odio = f"temas/{busqueda}-"
     #For para Scrape de las URL pagina por Pagina
     for paginas in range(1,count_pages): #Se empieza a partir de la segunda para facilitar la busqueda por url porque la 1 no tiene numero
         
@@ -118,7 +118,7 @@ def scraper_la_sexta(count_pages):
                         noticiasDiarias = 1
                     else:
                         noticiasDiarias = noticiasDiarias + 1
-                    noticia = Noticia(titulo, entradilla, fecha, url, "ODIO", "La Sexta", etiquetas, cuerpo )
+                    noticia = Noticia(titulo, entradilla, fecha, urls[i], busqueda, "La Sexta", etiquetas, cuerpo )
                     lista_noticias.append(noticia)
                     
                 
@@ -132,5 +132,6 @@ def scraper_la_sexta(count_pages):
 
 
 if __name__ == "__main__":
-    lista_noticias = scraper_la_sexta(5) 
-    guardarNoticias(lista_noticias, ("/NoticiasOdio"))
+    busqueda = "valencia"
+    lista_noticias = scraper_la_sexta(busqueda, 2) 
+    guardarNoticias(lista_noticias, (f"/{busqueda}"))
