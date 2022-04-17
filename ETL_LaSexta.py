@@ -3,6 +3,9 @@
 import re
 import requests
 from bs4 import BeautifulSoup
+from urllib import request as rq
+import ssl
+import bs4
 #import json
 
 #Internal Imports
@@ -11,127 +14,82 @@ from Guardado import guardarNoticias
 
 
 
-def scraper_la_sexta(busqueda ,count_pages):
+
+def scraper_la_sexta_bs4(busqueda, count_pages):
     lista_noticias = []
-    fechaAnterior = ""
     url_base = "https://www.lasexta.com/"
     url_odio = f"temas/{busqueda}-"
-    #For para Scrape de las URL pagina por Pagina
-    for paginas in range(1,count_pages): #Se empieza a partir de la segunda para facilitar la busqueda por url porque la 1 no tiene numero
-        
-        url = url_base + url_odio + str(paginas)
-        try:
-            page = requests.get(url)
-            soup = BeautifulSoup(page.content, 'html.parser')
-            articulos = soup.findAll("article")
-            urls = []
-            
-            print("###########################")
-            print("Pagina: " +str(paginas+1))
-            print("###########################")
+    url = url_base + url_odio + str(count_pages)
+    urls = []
+    try:
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        articulos = soup.findAll("article")
+        for articulo in articulos: 
+                urls.append(articulo.find("a")["href"])
+                #print("#################")
+                #print("Articulo")
+                #print(articulo)
+        print("\n#######################")
+        print("Aca comienzan cada noticia desde la URL.\n")
+        print("Parrafos:")
+        conjuntoParrafos = []
 
-            for articulo in articulos: 
-                regex = 'link href="(.*?)"' 
-                resultado_regex = re.search(regex, str(articulo))
-                if resultado_regex != None:
-                    urls.append(resultado_regex.group(1))
-
-        except Exception as e:
-            print(e)
-
-        for i in range(0, len(urls)):
+        for url in urls:
             try:
-                noticia = requests.get(urls[i])
-                print("NOTICIA: " + str(i))
-                print("--------------------------")
-                print(urls[i])
-                print("--------------------------")
-
-                #Imprimimos el contenido de la página
-                soup_noticia = BeautifulSoup(noticia.content, 'html.parser')
-                    
-                regexTitulo = '<h1[\w\W]*?>(.*?)<\/h1>'
-                regexAutor = '<div class="ue-c-article__byline-name">([\w\W]*?)<\/div>'
-                regexFecha = '<time datetime="(.*?)T'
-                regexEntradilla = '<p class="ue-c-article__standfirst">(.*?)<\/p>'
-                regexCuerpo = '<p>(.*?)<\/p>'
-                regexTags = 'tags-item"><a href=[\W\w]*?>(.*?)<'
+                
+                htmlTemp = rq.urlopen(url, context=ssl.SSLContext()).read()
+                soupPag = BeautifulSoup(htmlTemp, 'html.parser')
+                h1 = soupPag.find('h1', {'class':'title-new'})
+                title = h1.get_text()
+                #print(title)
+                subtitle =soupPag.find('sumary', {'class':'entradilla'})
+                entradilla = subtitle.get_text()
             
+                p_s = soupPag.find('div',{'class':'articleBody'})
+                parrafo_completo =[]
+                fecha = ""
+                for element in p_s:
+                    if type(element) == bs4.element.Tag:
+                        #print(element.name)
+                        if element.name =="p":
+                            parrafo_completo.append(element.text)
                     
-                titulo = re.search(regexTitulo, str(soup_noticia))
-                titulo = titulo.group(1)
-                titulo = re.sub(r'\<.*?\>', '', titulo)
-                print(titulo)
-                
-                autor = re.search(regexAutor, str(soup_noticia))
-                if autor != None:
-                    autor = autor.group(1)
-                    autor = re.sub(r'\<.*?\>', '', autor)
-                    autor.replace('\n', '')
-                    autor.rstrip("\n")
-                else:
-                    autor = ""
-                print(autor)
-                
-                fecha = re.search(regexFecha, str(soup_noticia))
-                if fecha != None:
-                    fecha = fecha.group(1)
-                else:
-                    fecha = ""
-                
-                entradilla = re.search(regexEntradilla, str(soup_noticia))
-                if entradilla != None:
-                    entradilla = entradilla.group(1)
-                    entradilla = re.sub(r'\<.*?\>', '', entradilla)
-                else:
-                    entradilla = ""
-                print (entradilla)
-                
-                parrafos = re.findall(regexCuerpo, str(soup_noticia))
-                if parrafos == None:
-                    parrafos = ""
-                else:
-                    cuerpo = ""
-                    for parrafo in parrafos:
-                        if cuerpo == "":
-                            cuerpo = parrafo
-                        else:
-                            cuerpo = cuerpo + ' ' + parrafo
-                    cuerpo = re.sub(r'\<.*?\>', '', cuerpo)
-                print(cuerpo)
-                
-                tags = re.findall(regexTags, str(soup_noticia))
-                if tags == None:
-                    etiquetas = ""
-                else:
-                    etiquetas = ""
-                    for tag in tags:
-                        if etiquetas == "":
-                            etiquetas = tag
-                        else:
-                            etiquetas = etiquetas + ', ' + tag
-                    etiquetas = re.sub(r'\<.*?\>', '', etiquetas)
-                print(etiquetas)   
-                
-                if fecha != "":                    
-                    if(fecha != fechaAnterior):
-                        noticiasDiarias = 1
+                            
                     else:
-                        noticiasDiarias = noticiasDiarias + 1
-                    noticia = Noticia(titulo, entradilla, fecha, urls[i], busqueda, "La Sexta", etiquetas, cuerpo )
-                    lista_noticias.append(noticia)
-                    
+                        pass
+                listado_categorias_list = []
+                tags = soupPag.find('ul',{'class':'listado-categorias'})
                 
-                print("\n")
+                listado_categorias_list.append(tags.get_text())
+                for a in listado_categorias_list:
+                    listado_categorias_list = a.replace('\n', ' ')
+                
+                fecha = []
+                fecha_articulo = soupPag.findAll("span", {"class":'article-dates__day'})
+                for date in fecha_articulo:
+                    fecha.append(date.text)
+                n = Noticia(title, entradilla, fecha, url, busqueda, "LaSexta", listado_categorias_list, parrafo_completo)
+                lista_noticias.append(n)
             except Exception as e:
-                print(e)
-            
+                print("Error aca" + str(e))
+              
+
+
+        
+    except:
+        pass
     return lista_noticias
+
+
+
             
 
 
 
 if __name__ == "__main__":
+    import Guardado
+
     busqueda = "valencia"
-    lista_noticias = scraper_la_sexta(busqueda, 2) 
-    guardarNoticias(lista_noticias, (f"/{busqueda}"))
+    lista = scraper_la_sexta_bs4("Madrid", 2)
+    Guardado.guardarNoticias(lista, ("/"+busqueda))
