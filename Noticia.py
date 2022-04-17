@@ -10,12 +10,3 @@ class Noticia:
         self.tags = tags
         self.texto = texto
         self.path = None
-
-    def getStringTags(self):
-        string = ""
-        i = 0
-        for i in range(len(self.tags)):
-            string = string + self.tags[i]
-            if i!=len(self.tags)-1:
-                string = string + " - "
-        return string

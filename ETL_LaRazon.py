@@ -53,7 +53,6 @@ def getLaRazonNews(categoria):
                 conjuntoTags = []
                 for x in range(len(dd)):
                     conjuntoTags.append(dd[x].get_text())
-                tags = " ".join(conjuntoTags)
 
                 fechaTmp = art.select('time')[0]['datetime']
                 partes = fechaTmp.split("T")[0].split("-")
@@ -61,7 +60,7 @@ def getLaRazonNews(categoria):
                 
                 #fecha = dt.datetime.strptime(fecha, '%d-%m-%Y')
 
-                n = Noticia(titulo, subtitulo, fecha, url, categoria, "LaRazon", tags, texto)
+                n = Noticia(titulo, subtitulo, fecha, url, categoria, "LaRazon", conjuntoTags, texto)
                 listaNoticias.append(n)
             except Exception as e:
                 print(e)   
