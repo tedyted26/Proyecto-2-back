@@ -53,7 +53,7 @@ def scraper_la_sexta_bs4(busqueda, count_pages):
                     if type(element) == bs4.element.Tag:
                         #print(element.name)
                         if element.name =="p":
-                            parrafo_completo += str(element.text).strip() 
+                            parrafo_completo += str(element.text).strip()
                     else:
                         pass
                 

@@ -32,11 +32,16 @@ def test_sentiment_analysis():
         }
     )
 
-@app.route('/app-sentiment-analysis', methods=["GET","POST"])
+@app.route('/app-sentiment-analysis', methods=["POST"])
 def sentiment_analysis():
-    text_input_user = request.args.get('text')
-    text = preprocessing_input_user(text_input_user)
-    return text
+    if request.method == 'POST':
+        text_input_user = request.json["texto"]
+        print(f"Recibido texto: {text_input_user}")
+        text = preprocessing_input_user(text_input_user)
+        return text
+    else:
+        print("\n\nNo es post\n\n")
+        return None
 
 
 if __name__ == '__main__':
