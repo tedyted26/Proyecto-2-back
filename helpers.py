@@ -7,7 +7,8 @@ import datetime
 #Internal Imports
 #from tweepy import OAuthHandler
 
-
+# No usamos twitter de momento
+'''
 def twitter_data_access():
     consumer_key = "K5CQ385KRpL8nlsHnoLpqcyaT"
     consumer_secret = "VZkRXTLwjE3KOcl0BAMdlwprPBtWpIB5bWN8HjjuVKqmrN4pEo"
@@ -29,7 +30,7 @@ def twitter_data_access():
             listatextos.append(status.full_text)
         
     return listatextos
-
+'''
 
 def preprocessing_input_user(text_to_process):
     texto = TextBlob(text_to_process)
@@ -63,10 +64,7 @@ def preprocessing_input_user(text_to_process):
     return jsonify(text_object)
 
 
-
-
-
-
+'''
 def preprocessing(list_of_text):
     polaridadTotal = 0
     positivos = 0
@@ -123,3 +121,4 @@ def preprocessing(list_of_text):
     print("Tweets neutros: " + str(neutros))
     
     return jsonify(list_objects)
+'''
