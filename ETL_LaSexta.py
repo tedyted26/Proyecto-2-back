@@ -47,23 +47,19 @@ def scraper_la_sexta_bs4(busqueda, count_pages):
                 entradilla = subtitle.get_text()
             
                 p_s = soupPag.find('div',{'class':'articleBody'})
-                parrafo_completo =[]
+                parrafo_completo = ""
                 fecha = ""
                 for element in p_s:
                     if type(element) == bs4.element.Tag:
                         #print(element.name)
                         if element.name =="p":
-                            parrafo_completo.append(element.text)
-                    
-                            
+                            parrafo_completo += str(element.text).strip() 
                     else:
                         pass
-                listado_categorias_list = []
+                
                 tags = soupPag.find('ul',{'class':'listado-categorias'})
                 
-                listado_categorias_list.append(tags.get_text())
-                for a in listado_categorias_list:
-                    listado_categorias_list = a.replace('\n', ' ')
+                listado_categorias_list = tags.get_text().strip().split("\n")
                 
                 fecha = []
                 fecha_articulo = soupPag.findAll("span", {"class":'article-dates__day'})
@@ -72,19 +68,10 @@ def scraper_la_sexta_bs4(busqueda, count_pages):
                 n = Noticia(title, entradilla, fecha, url, busqueda, "LaSexta", listado_categorias_list, parrafo_completo)
                 lista_noticias.append(n)
             except Exception as e:
-                print("Error aca" + str(e))
-              
-
-
-        
+                print("Error aca" + str(e))     
     except:
         pass
     return lista_noticias
-
-
-
-            
-
 
 
 if __name__ == "__main__":
